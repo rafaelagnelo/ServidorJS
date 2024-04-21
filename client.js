@@ -98,7 +98,58 @@ async function main(){
 
     sum = soma_valores(exercises["soma-valores"].entrada.objeto);
 
+    function enesimo_primo(n){
+        let count = 0;
+        let i = 2;
+        while(count < n){
+            if(isPrimo(i)){
+                count++;
+            }
+            i++;
+        }
+        return i-1;
+    }
 
+    function isPrimo(n){
+        for(let i = 2; i < n; i++){
+            if(n % i === 0){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    res8 = enesimo_primo(exercises["n-esimo-primo"].entrada.n);
+
+    let strings = exercises['maior-prefixo-comum'].entrada.strings;
+    let largestPrefix = '';
+    for (let i = 0; i < strings.length - 1; i++) {
+        for (let j = i + 1; j < strings.length; j++) {
+            let prefix = '';
+            for (let k = 0; k < Math.min(strings[i].length, strings[j].length); k++) {
+                if (strings[i][k] === strings[j][k]) {
+                    prefix += strings[i][k];
+                } else {
+                    break;
+                }
+            }
+            if (prefix.length > largestPrefix.length) {
+                largestPrefix = prefix;
+            }
+        }
+    }
+
+    res9 = largestPrefix;
+    console.log(res9);
+
+    function soma_segundo_maior_menor(numeros){
+        numeros.sort((a, b) => a - b);
+        return numeros[1] + numeros[numeros.length - 2];
+    }
+    
+    res10 = soma_segundo_maior_menor(exercises["soma-segundo-maior-e-menor-numeros"].entrada.numeros);
+    
+    
     axios.post("https://tecweb-js.insper-comp.com.br/exercicio/soma", { resposta: res1 }, config).then((response) => {console.log("soma");console.log(response.data)});
     axios.post("https://tecweb-js.insper-comp.com.br/exercicio/tamanho-string", { resposta: tamanhoString }, config).then((response) => {console.log("tamanho-string");console.log(response.data)});
     axios.post("https://tecweb-js.insper-comp.com.br/exercicio/nome-do-usuario", { resposta: nomeUsuario }, config).then((response) => {console.log("nome-usuario");console.log(response.data)});
@@ -108,6 +159,9 @@ async function main(){
     axios.post("https://tecweb-js.insper-comp.com.br/exercicio/mru", { resposta: res7 }, config).then((response) => {console.log("mru");console.log(response.data)});
     axios.post("https://tecweb-js.insper-comp.com.br/exercicio/inverte-string", { resposta: stringInversa }, config).then((response) => {console.log("inverte-string");console.log(response.data)});
     axios.post("https://tecweb-js.insper-comp.com.br/exercicio/soma-valores", { resposta: sum }, config).then((response) => {console.log("soma-valores");console.log(response.data);});
+    axios.post("https://tecweb-js.insper-comp.com.br/exercicio/n-esimo-primo", { resposta: res8 }, config).then((response) => {console.log("enesimo-primo");console.log(response.data);});
+    axios.post("https://tecweb-js.insper-comp.com.br/exercicio/maior-prefixo-comum", { resposta: res9 }, config).then((response) => {console.log("maior-prefixo-comum");console.log(response.data);});
+    axios.post("https://tecweb-js.insper-comp.com.br/exercicio/soma-segundo-maior-e-menor-numeros", { resposta: res10 }, config).then((response) => {console.log("soma-segundo-maior-e-menor-numeros");console.log(response.data);});
 }   
 
 
