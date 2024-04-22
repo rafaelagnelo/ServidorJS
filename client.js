@@ -148,8 +148,29 @@ async function main(){
     }
     
     res10 = soma_segundo_maior_menor(exercises["soma-segundo-maior-e-menor-numeros"].entrada.numeros);
+
+    function conta_palindromos(numeros){
+        let count = 0;
+        for(let i = 0; i < numeros.length; i++){
+            if(isPalindromo(numeros[i])){
+                count++;
+            }
+        }
+        return count;
+    }
+
+    function isPalindromo(n){
+        return n.toString() === n.toString().split('').reverse().join('');
+    }
+    
+    res11 = conta_palindromos(exercises["conta-palindromos"].entrada.palavras)
+
+    const sumOfIntegers = exercises["soma-de-strings-de-ints"].entrada.strings.map(Number).reduce((a, b) => a + b, 0);
+    console.log(sumOfIntegers);
     
     
+
+
     axios.post("https://tecweb-js.insper-comp.com.br/exercicio/soma", { resposta: res1 }, config).then((response) => {console.log("soma");console.log(response.data)});
     axios.post("https://tecweb-js.insper-comp.com.br/exercicio/tamanho-string", { resposta: tamanhoString }, config).then((response) => {console.log("tamanho-string");console.log(response.data)});
     axios.post("https://tecweb-js.insper-comp.com.br/exercicio/nome-do-usuario", { resposta: nomeUsuario }, config).then((response) => {console.log("nome-usuario");console.log(response.data)});
@@ -162,6 +183,8 @@ async function main(){
     axios.post("https://tecweb-js.insper-comp.com.br/exercicio/n-esimo-primo", { resposta: res8 }, config).then((response) => {console.log("enesimo-primo");console.log(response.data);});
     axios.post("https://tecweb-js.insper-comp.com.br/exercicio/maior-prefixo-comum", { resposta: res9 }, config).then((response) => {console.log("maior-prefixo-comum");console.log(response.data);});
     axios.post("https://tecweb-js.insper-comp.com.br/exercicio/soma-segundo-maior-e-menor-numeros", { resposta: res10 }, config).then((response) => {console.log("soma-segundo-maior-e-menor-numeros");console.log(response.data);});
+    axios.post("https://tecweb-js.insper-comp.com.br/exercicio/conta-palindromos", { resposta:res11}, config).then((response) => {console.log("conta-palindromos");console.log(response.data);});
+    axios.post("https://tecweb-js.insper-comp.com.br/exercicio/soma-de-strings-de-ints", { resposta: sumOfIntegers }, config).then((response) => {console.log("soma-de-strings-de-ints");console.log(response.data);});
 }   
 
 
