@@ -167,9 +167,26 @@ async function main(){
 
     const sumOfIntegers = exercises["soma-de-strings-de-ints"].entrada.strings.map(Number).reduce((a, b) => a + b, 0);
     console.log(sumOfIntegers);
-    
-    
 
+    let endpoints = exercises["soma-com-requisicoes"].entrada.endpoints;
+    let numbers = await Promise.all(endpoints.map((endpoint) => axios.get(endpoint, config).then((response) => response.data)));
+    let soma = numbers.reduce((a, b) => a + b);
+    res12 = soma;
+
+    async function caca_ao_tesouro(url) {
+        let response = await axios.get(url, config);
+        let data = response.data;
+        
+        if (typeof data === 'number') {
+            return data;
+        } else if (typeof data === 'string') {
+            return await caca_ao_tesouro(data);
+        } else {
+            throw new Error('Invalid response');
+        }
+    }
+
+    let tesouro = await caca_ao_tesouro(exercises['caca-ao-tesouro'].entrada.inicio);
 
     axios.post("https://tecweb-js.insper-comp.com.br/exercicio/soma", { resposta: res1 }, config).then((response) => {console.log("soma");console.log(response.data)});
     axios.post("https://tecweb-js.insper-comp.com.br/exercicio/tamanho-string", { resposta: tamanhoString }, config).then((response) => {console.log("tamanho-string");console.log(response.data)});
@@ -185,7 +202,10 @@ async function main(){
     axios.post("https://tecweb-js.insper-comp.com.br/exercicio/soma-segundo-maior-e-menor-numeros", { resposta: res10 }, config).then((response) => {console.log("soma-segundo-maior-e-menor-numeros");console.log(response.data);});
     axios.post("https://tecweb-js.insper-comp.com.br/exercicio/conta-palindromos", { resposta:res11}, config).then((response) => {console.log("conta-palindromos");console.log(response.data);});
     axios.post("https://tecweb-js.insper-comp.com.br/exercicio/soma-de-strings-de-ints", { resposta: sumOfIntegers }, config).then((response) => {console.log("soma-de-strings-de-ints");console.log(response.data);});
-}   
+    axios.post("https://tecweb-js.insper-comp.com.br/exercicio/soma-com-requisicoes", { resposta: res12 }, config).then((response) => {console.log("soma-com-requisicoes"); console.log(response.data);});
+    axios.post("https://tecweb-js.insper-comp.com.br/exercicio/caca-ao-tesouro", { resposta: tesouro }, config).then((response) => {console.log("caca-ao-tesouro"); console.log(response.data);});
+}       
+
 
 
 
